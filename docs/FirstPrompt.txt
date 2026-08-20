@@ -1,0 +1,34 @@
+Diseñar una app web para estudiantes universitarios responsive PWA (se planea usar mucho en celular) con frontend en React y backend and java springboot.
+Edubackend  folder de backend
+EduBakaFront  folder de frontend
+El stack del frontend será React con vite y tailwind CSS, el deploy será con GitHub pages
+El stack del backend será java con spring con gradle, y el deploy sera en render freetier dockerfile, junto a una bd postgresl que tmb sera de render (obviamente cada mes se reiniciara, pero bueno quizás luego se pague), si tienes uuna mejor opción que no se elimine normal.
+Seguridad con springSecurity y JWT, dtos request responsive, loombok, dataStruct mapper, service y serviceIMpl 
+
+Para la estructura del proyecto podríamos copiar de este proyecto que hice que fue sobre horeles en @C:\projects\luxestay-project, donde aca hice el frontend con react C:\projects\luxestay-project y el backend con java y springboot pero estaba muy bien estructurado
+puedes leer el readme.md
+- Elijes un template de react para este proyecto, o sea una plantilla que veas bien, además investigas fuentes perfectas al tema
+- Para el backend te basas totalmente en el del otro proyecto o sea usas auditableEntity, mapStruct, convertes, exceptions personalizadas, etc.
+
+Funciones:
+-Logeo con google (cada usuario tiene sus info y progreso de lo que tiene, asi puede abrir en varios dispositivos
+-La primera vista seria que la planteestu no se ocurre, basate en aplicaciones similares
+Tener vista de exámenes próximos, para ello se tiene un calendario el alumno puede agregar las fechas para este ciclo académico, de que curso, puede agregar un curso, mejor dicho que lo mande a configuración.
+-En su configuración puede agregar que ciclo esta estudiando (haz un precargado, esto va para el data seed del proyecto) cargas ciclos precargado 2026-2, 2027-0, 2027-1, 2027-2, asi hasta 2030 al menos tenerlo precargado.
+Configurar de que dia a que dia es su ciclo, que cursos va a llevar y personalizar con un color su curso para cuando vea en el calendario.
+- Editar su avatar, por ahora solo sera sus dos letras y unas imágenes para que puede elegir (unas de wow, unas de unos personajes de anime populares, etc que los predescargas y colocas en una carpeta para que luego lo elija, ósea estará en el servidor del frontend no contaremos con servidor de imagenes) si no solo sus iniciales, lo otro puede colocar en que universidad esta
+- Vista de lista de tareas, en esta vista es una todo list que puede poner una fecha maxima arealizar, seria que el sistema le notifique las tareas a vencer, estas tareas también pueden tener subtareas, seria que las ordenes por fechas,luego la puede eliminar el usuario (borrado lógico) pues le puede salir en eliminados y luego recuperarla de ahi.
+- Vista de pomodoro editable, el usuario puede colocar el tiempo que desea y cuanto descansa. Sabes como es la app forest? Pues algo parecido aca pero con rachas de cuando estuvo estudiando sin cortar su temporizador.
+- Rachas (Algo como Duolingo) donde cada dia que el usuario se agrega una tarea a hacer o usa el modo pomodoro significa que estudio y en la vista de rachas se le debe coloca un fueguito en ese calendario y le cuenta un dia mas.
+
+- Usar Api de Gemini (es gratis no?) me refiero a si lo es colocar esta vista si no no, pero seria una vista llamada chat y el usuario puede preguntar, se puede tener como flotante en la vista pomodoro y claro tmb en su la vista chat, decir que solo son para preguntas breves y dices que es impulsado por Gemini.
+
+Características:
+La característica principal de esta app es en temas puede tener el predeterminado y el modo WOW donde la interfaz torna a ser como el juego WOW (caracterizado por lo de cumplir misiones y puede intencivar al usuario a hacer sus tareas)
+- Debe tener un toggle para cambiar modo de light a oscuro y tener predeterminado igual al del sistema
+- En el tema de wow seria que cada tanto salga un mensaje como en el juego de dar consejos o algo asi o mensaje motivador (ya cosas de frikis del juego) para los toast
+- En el tema wow cambia a un diseño todo, desde el bg hasta los input,  tipo de letra, te digo que todo y claro que las funciones son las mismas solo que el frontend es el que cambio agregando unos toas de esos mensajes quedicen los personajes y son icónicos, y por ejemplo en pomodoro puede ser el de hacer una mazmorra o cosas asi. El de rachas tmb, ahi veo tu creatividad siendo un UIX senior como IA.
+
+Divide en tres fases esta primera integración viendo que este completa la app y repiensa cualquier hueco que se puede dejar.
+No comentes demasido tus líneas pues es un gasto de token innecesario, si necesitas un md para que tengas bien tu memoria esta bien
+Nombre de la app: EduBaka es como educación para tontos en japones

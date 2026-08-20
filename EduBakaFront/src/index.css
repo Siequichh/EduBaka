@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* ThemeContext toggles data-theme on <html>, not a .dark class - wire Tailwind's
+   dark: variant to that so the in-app toggle actually controls dark: utilities
+   instead of only ever following the OS prefers-color-scheme media query. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+
+  /* EduBaka default theme: warm "study notebook" palette - paper tones + a
+     coral highlighter accent, deliberately distinct from Modo WoW's palette. */
+  --color-paper: #faf3e7;
+  --color-paper-dark: #17130f;
+  --color-surface-dark: #221c15;
+  --color-ink: #221e1a;
+  --color-ink-soft: #6b6255;
+  --color-ink-light: #f5ecdd;
+  --color-ink-light-soft: #a69a85;
+  --color-accent: #ff5a36;
+  --color-accent-dark: #e14322;
+  --color-violet: #5b3df5;
+  --color-mint: #14b87f;
+}
+
+@layer utilities {
+  .wow-gradient {
+    @apply bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-(--color-paper) text-(--color-ink) transition-colors duration-500;
+    font-family: var(--font-sans);
+  }
+
+  :where([data-theme="dark"]) body {
+    @apply bg-(--color-paper-dark) text-(--color-ink-light);
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  /* Shared building blocks for the default theme - every new page (Tasks,
+     Calendar, Settings, Streaks, Chat) should reuse these instead of
+     redefining card/button/input styling inline. */
+  .eb-card {
+    @apply bg-white dark:bg-(--color-surface-dark) border border-black/[0.06] dark:border-white/[0.08] rounded-3xl shadow-[0_10px_30px_-12px_rgba(34,24,12,0.18)];
+  }
+  .eb-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-(--color-accent) text-white font-semibold px-6 py-3.5 transition-all hover:bg-(--color-accent-dark) hover:-translate-y-0.5 active:translate-y-0 shadow-[0_8px_20px_-6px_rgba(255,90,54,0.5)] disabled:opacity-50 disabled:pointer-events-none disabled:translate-y-0;
+  }
+  .eb-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/5 font-medium px-6 py-3.5 transition-all hover:bg-black/[0.03] dark:hover:bg-white/10 hover:-translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .eb-input {
+    @apply w-full px-5 py-3.5 rounded-2xl bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 text-(--color-ink) dark:text-(--color-ink-light) placeholder-(--color-ink-soft) dark:placeholder-white/30 outline-none transition-all focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent)/15 [color-scheme:light] dark:[color-scheme:dark];
+  }
+  .eb-badge {
+    @apply inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+}
+
+/* WOW Mode Animations & Warcraft Aesthetics */
+.wow-mode-active, .wow-mode-active.bg-\[\#0B1120\], .wow-mode-active.bg-\[\#F8FAFC\] {
+  background: radial-gradient(circle at 20% 0%, #241a10 0%, #140f0a 55%, #0a0706 100%) !important;
+  color: #F3E5D8 !important;
+  background-attachment: fixed !important;
+  font-family: 'IM Fell English', 'Cinzel', serif;
+  position: relative;
+}
+
+/* Faint parchment grain, cheap CSS-only texture instead of an image asset */
+.wow-mode-active::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(rgba(248, 183, 0, 0.06) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+.wow-mode-active h1,
+.wow-mode-active h2,
+.wow-mode-active h3,
+.wow-mode-active .wow-font,
+.wow-mode-active .font-display {
+  font-family: 'Cinzel', serif !important;
+  color: #F8B700 !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.wow-mode-active .border-white\/20 {
+  border-color: rgba(248, 183, 0, 0.3) !important;
+}
+
+.wow-mode-active .bg-white\/10 {
+  background-color: rgba(20, 15, 15, 0.8) !important;
+  box-shadow: inset 0 0 10px rgba(248, 183, 0, 0.1);
+}
+
+/* Ornate double-border frame applied to every card, including pages that
+   don't fork their JSX into a separate wow branch (Settings/Streaks/Calendar/
+   Chat use the shared .eb-card class) - this is how the theme reaches the
+   whole app without duplicating every page's markup. */
+.wow-mode-active .eb-card,
+.wow-mode-active .rounded-2xl,
+.wow-mode-active .rounded-3xl {
+  background-color: rgba(22, 16, 12, 0.88) !important;
+  border: 1px solid rgba(248, 183, 0, 0.45) !important;
+  box-shadow:
+    inset 0 0 0 3px rgba(8, 6, 5, 0.7),
+    inset 0 0 0 4px rgba(248, 183, 0, 0.22),
+    0 12px 30px -10px rgba(0, 0, 0, 0.65) !important;
+  color: #F3E5D8;
+}
+
+.wow-mode-active .eb-card {
+  position: relative;
+}
+
+.wow-mode-active .eb-card::before,
+.wow-mode-active .eb-card::after {
+  content: '\2756';
+  position: absolute;
+  color: rgba(248, 183, 0, 0.65);
+  font-size: 13px;
+  line-height: 1;
+  pointer-events: none;
+}
+.wow-mode-active .eb-card::before { top: 10px; left: 12px; }
+.wow-mode-active .eb-card::after { bottom: 10px; right: 12px; }
+
+.wow-mode-active .eb-btn-primary {
+  background: linear-gradient(180deg, #F8B700, #C9891A) !important;
+  color: #1c1408 !important;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 0 #8a5c0f, 0 10px 18px -6px rgba(0, 0, 0, 0.5) !important;
+}
+.wow-mode-active .eb-btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.wow-mode-active .eb-btn-secondary {
+  background: rgba(20, 15, 15, 0.75) !important;
+  border: 1px solid rgba(248, 183, 0, 0.35) !important;
+  color: #F3E5D8 !important;
+}
+
+.wow-mode-active .eb-input {
+  background: rgba(10, 7, 6, 0.6) !important;
+  border: 1px solid rgba(248, 183, 0, 0.3) !important;
+  color: #F3E5D8 !important;
+}
+.wow-mode-active .eb-input::placeholder {
+  color: rgba(243, 229, 216, 0.4);
+}
+
+.wow-mode-active .eb-badge {
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: #F3E5D8 !important;
+}
+
+@keyframes wow-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.wow-toast {
+  animation: wow-toast-in 0.3s ease-out;
+}
+
+/* Premium Floating Blobs */
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Premium Inputs */
+.premium-input {
+  @apply w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all duration-300;
+}
+:where([data-theme="dark"]) .premium-input {
+  @apply bg-white/5 border-white/10 focus:ring-blue-500/50 focus:border-blue-500/50;
+}
