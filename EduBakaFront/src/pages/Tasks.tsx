@@ -66,13 +66,22 @@ const Tasks = () => {
     return () => clearInterval(interval);
   }, [tasks]);
 
+  // On Android/mobile `new Notification()` throws ("Illegal constructor") — notifications
+  // must go through the service worker there. Prefer it, fall back to the constructor,
+  // and never let a failure bubble up (an uncaught throw here would unmount the whole app).
+  const notify = async (title: string, body: string) => {
+    try {
+      const reg = await navigator.serviceWorker?.ready;
+      if (reg) await reg.showNotification(title, { body });
+      else new Notification(title, { body });
+    } catch { /* notifications are best-effort */ }
+  };
+
   const checkDueReminders = (list: Task[]) => {
     if (!('Notification' in window) || Notification.permission !== 'granted') return;
     const notified: number[] = JSON.parse(localStorage.getItem(NOTIFIED_KEY) || '[]');
     const toNotify = list.filter((t) => dueUrgency(t) === 'soon' && !notified.includes(t.id));
-    toNotify.forEach((t) => {
-      new Notification('Tarea por vencer', { body: `${t.title} vence pronto` });
-    });
+    toNotify.forEach((t) => notify('Tarea por vencer', `${t.title} vence pronto`));
     if (toNotify.length > 0) {
       localStorage.setItem(NOTIFIED_KEY, JSON.stringify([...notified, ...toNotify.map((t) => t.id)]));
     }
