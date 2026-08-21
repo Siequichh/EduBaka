@@ -1,12 +1,26 @@
 # EduBaka
 
 [![Deploy frontend](https://github.com/Siequichh/EduBaka/actions/workflows/deploy-frontend.yml/badge.svg)](https://github.com/Siequichh/EduBaka/actions/workflows/deploy-frontend.yml)
+![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4-6DB33F?logo=springboot&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-Vite-3178C6?logo=typescript&logoColor=white)
 
 A study companion PWA for university students — task and exam tracking, a Pomodoro timer with streaks, an academic-cycle calendar, and an optional AI study chat.
 
 Its signature feature is **Modo WoW**: an alternate World of Warcraft–themed skin for the entire app, independent of the regular light/dark theme toggle.
 
 > "EduBaka" — a playful mashup of *educación* and *baka* (Japanese for "fool"): school for dummies.
+
+**[Live demo →](https://siequichh.github.io/EduBaka/)**
+
+## Contents
+
+- [Features](#features)
+- [Stack](#stack)
+- [Project layout](#project-layout)
+- [Getting started](#getting-started)
+- [Deployment](#deployment)
 
 ## Features
 
@@ -34,9 +48,18 @@ Edubackend/Edubackend/   Spring Boot REST API
 EduBakaFront/            React PWA
 ```
 
-Each has its own README with local setup instructions:
+## Getting started
+
+Each app has its own README with local setup instructions:
 
 - [`Edubackend/Edubackend/README.md`](Edubackend/Edubackend/README.md) — backend
 - [`EduBakaFront/README.md`](EduBakaFront/README.md) — frontend
 
-The frontend auto-deploys to GitHub Pages on every push to `main` via `.github/workflows/deploy-frontend.yml`.
+## Deployment
+
+- **Frontend** auto-deploys to GitHub Pages on every push to `main` via [`.github/workflows/deploy-frontend.yml`](.github/workflows/deploy-frontend.yml).
+- **Backend** deploys as a Docker container to any host (Render, Fly.io, etc.) via [`Edubackend/Edubackend/Dockerfile`](Edubackend/Edubackend/Dockerfile).
+
+---
+
+<sub>Personal project, unlicensed — all rights reserved unless a license is added.</sub>
