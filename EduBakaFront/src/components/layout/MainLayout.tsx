@@ -19,9 +19,10 @@ const MainLayout = () => (
 const MainLayoutContent = () => {
   const { theme, mode, toggleTheme, toggleMode } = useTheme();
   const { user, logout } = useAuth();
-  const { isActive: tourActive, start: startTour } = useTour();
+  const { start: startTour } = useTour();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const sidebarOpen = isMobileMenuOpen || tourActive;
+  // Tour no longer force-opens the sidebar — on mobile it uses a centered card, not a spotlight.
+  const sidebarOpen = isMobileMenuOpen;
 
   const wow = mode === 'wow';
 
@@ -46,7 +47,7 @@ const MainLayoutContent = () => {
       </div>
 
       {/* Overlay for Mobile */}
-      {isMobileMenuOpen && !tourActive && (
+      {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 md:hidden backdrop-blur-sm"
           onClick={() => setIsMobileMenuOpen(false)}

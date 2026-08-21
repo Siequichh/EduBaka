@@ -20,6 +20,9 @@ const TourGuide = () => {
     if (!isActive) return;
 
     const measure = () => {
+      // Spotlight is desktop-only — the sidebar is a hidden overlay on mobile, so
+      // pointing at it shows the user nothing. Mobile uses a centered card instead.
+      if (!window.matchMedia('(min-width: 768px)').matches) { setRect(null); return; }
       const el = getNavRef(step.path);
       if (!el) { setRect(null); return; }
       const r = el.getBoundingClientRect();
@@ -60,9 +63,20 @@ const TourGuide = () => {
 
   return (
     <div className="fixed inset-0 z-[70]">
-      {/* Dimmed backdrop with a cutout around the highlighted nav item */}
+      {/* Mobile: plain dim + centered card (no sidebar spotlight — it's hidden on phones) */}
+      <div className="md:hidden absolute inset-0 flex items-center justify-center p-5" style={{ background: 'rgba(0,0,0,0.7)' }}>
+        <div className={`w-full max-w-sm p-6 rounded-3xl border shadow-2xl ${cardTone}`}>
+          <TourCardContent
+            Icon={Icon} title={title} body={body} wow={wow}
+            stepIndex={stepIndex} totalSteps={totalSteps} isLast={isLast}
+            onPrev={prev} onNext={next} onClose={close}
+          />
+        </div>
+      </div>
+
+      {/* Desktop: dimmed backdrop with a cutout around the highlighted nav item */}
       <div
-        className="absolute inset-0 transition-all duration-300"
+        className="hidden md:block absolute inset-0 transition-all duration-300"
         style={spotlightStyle ? {
           top: spotlightStyle.top,
           left: spotlightStyle.left,
@@ -75,19 +89,10 @@ const TourGuide = () => {
       />
       {spotlightStyle && (
         <div
-          className={`absolute rounded-2xl pointer-events-none ring-2 ${wow ? 'ring-[#F8B700]' : 'ring-(--color-accent)'} animate-pulse`}
+          className={`hidden md:block absolute rounded-2xl pointer-events-none ring-2 ${wow ? 'ring-[#F8B700]' : 'ring-(--color-accent)'} animate-pulse`}
           style={{ top: spotlightStyle.top, left: spotlightStyle.left, width: spotlightStyle.width, height: spotlightStyle.height }}
         />
       )}
-
-      {/* Mobile: bottom sheet */}
-      <div className={`md:hidden fixed bottom-0 inset-x-0 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] rounded-t-3xl border shadow-2xl ${cardTone}`}>
-        <TourCardContent
-          Icon={Icon} title={title} body={body} wow={wow}
-          stepIndex={stepIndex} totalSteps={totalSteps} isLast={isLast}
-          onPrev={prev} onNext={next} onClose={close}
-        />
-      </div>
 
       {/* Desktop: floating card near the highlighted item */}
       <div
