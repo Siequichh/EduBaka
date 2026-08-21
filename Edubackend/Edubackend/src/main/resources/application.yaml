@@ -32,7 +32,7 @@ app:
   security:
     jwt:
       secret: ${JWT_SECRET:defaultSecretKeyEduBaka2024_MakeSureItsLongEnough!}
-      expiration-ms: 3600000 # 1 hour
+      expiration-ms: 2592000000 # 30 days
   frontend:
     url: ${FRONTEND_URL:http://localhost:5173}
   chat:

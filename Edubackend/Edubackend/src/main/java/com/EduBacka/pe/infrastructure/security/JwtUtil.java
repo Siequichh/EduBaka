@@ -17,8 +17,9 @@ public class JwtUtil {
     @Value("${app.security.jwt.secret:defaultSecretKeyEduBaka2024!}")
     private String jwtSecret;
 
-    @Value("${app.security.jwt.expiration-ms:3600000}")
-    private int jwtExpirationMs;
+    // long, not int: >24.8 days in ms overflows int and would mint pre-expired tokens.
+    @Value("${app.security.jwt.expiration-ms:2592000000}")
+    private long jwtExpirationMs;
 
     public String generateToken(String email, UserRole role, String fullName) {
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
