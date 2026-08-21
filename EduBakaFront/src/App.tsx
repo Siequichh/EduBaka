@@ -20,7 +20,7 @@ function App() {
     <AuthProvider>
       <ThemeProvider>
         <PomodoroProvider>
-          <Router>
+          <Router basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
