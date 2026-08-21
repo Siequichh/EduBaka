@@ -8,7 +8,7 @@ export default defineConfig(({ command }) => ({
   // Only prefix for production builds (GitHub Pages project-page path - must match
   // the repo name if it ever changes, see docs/DEPLOY.md) - the dev server should
   // still serve from "/" so `npm run dev` isn't affected.
-  base: command === 'build' ? '/EduBakaFront/' : '/',
+  base: command === 'build' ? '/EduBaka/' : '/',
   plugins: [
     react(),
     tailwindcss(),

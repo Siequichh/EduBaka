@@ -25,7 +25,7 @@ npm run preview  # serve the production build locally
 npm run lint
 ```
 
-`vite.config.ts` sets `base: '/EduBakaFront/'` for production builds only (GitHub Pages project-page path — `npm run dev` still serves from `/`). If you rename the repo, update that value to match, or deploy is scoped to a "user/org root" site instead.
+`vite.config.ts` sets `base: '/EduBaka/'` for production builds only (GitHub Pages project-page path, matching the repo name — `npm run dev` still serves from `/`). If you rename the repo, update that value to match, or deploy is scoped to a "user/org root" site instead.
 
 ## Deploying
 
