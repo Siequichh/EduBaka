@@ -4,8 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { LogOut, Plus, Trash2, Pencil, Check, Sparkles } from 'lucide-react';
 
-const WOW_AVATARS = Array.from({ length: 6 }, (_, i) => `/avatars/wow/${i + 1}.svg`);
-const ANIME_AVATARS = Array.from({ length: 6 }, (_, i) => `/avatars/anime/${i + 1}.svg`);
+const WOW_AVATARS = Array.from({ length: 6 }, (_, i) => `${import.meta.env.BASE_URL}avatars/wow/${i + 1}.svg`);
+const ANIME_AVATARS = Array.from({ length: 6 }, (_, i) => `${import.meta.env.BASE_URL}avatars/anime/${i + 1}.svg`);
 
 interface Cycle { id: number; name: string; }
 interface Course {
