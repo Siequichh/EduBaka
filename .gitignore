@@ -46,3 +46,6 @@ Thumbs.db
 
 # ── Local tooling ────────────────────────────────────────────────────────
 .claude/
+
+# ── Personal/local notes - not for the public repo ────────────────────────
+docs/
