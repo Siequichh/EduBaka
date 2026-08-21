@@ -16,6 +16,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.net.URI;
 import java.util.List;
 
 @Configuration
@@ -57,12 +58,20 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(frontendUrl));
+        configuration.setAllowedOrigins(List.of(frontendOrigin()));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    // app.frontend.url may include a path (e.g. a GitHub Pages project site at
+    // /EduBaka) for building OAuth2 redirect URLs elsewhere, but CORS only ever
+    // matches against the bare origin browsers send - never the path.
+    private String frontendOrigin() {
+        URI uri = URI.create(frontendUrl);
+        return uri.getScheme() + "://" + uri.getAuthority();
     }
 }
